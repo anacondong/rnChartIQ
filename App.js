@@ -24,16 +24,20 @@
  } from 'react-native/Libraries/NewAppScreen';
  
  import { WebView } from 'react-native-webview';
+ 
  // ...
  const App: () => React$Node = () => {
    const [price, setPrice] = useState(0);
    const [symbol, setSymbol] = useState(' ');
- 
+   const myHtmlFile = require("./html.html");
+   
    return (
      <>
        <HUD value={price} symbol={symbol} />
        <WebView
-         source={{ uri: 'http://localhost:3000/technical-analysis-chart.html' }}
+         originWhitelist={['*']}
+         //source={myHtmlFile} // html
+         source={{ uri: 'http://localhost:3000/technical-analysis-chart.html'}} // chartIQ server
          onMessage={event => {
            console.log('event', event.nativeEvent.data)
            const { data } = event.nativeEvent
